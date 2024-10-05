@@ -1,21 +1,23 @@
+import path from "path";
 import { fileURLToPath, URL } from 'url';
-import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
+import EnvironmentPlugin from "vite-plugin-environment";
 import environment from 'vite-plugin-environment';
-import dotenv from 'dotenv';
-
-dotenv.config({ path: '../../.env' });
+import react from '@vitejs/plugin-react';
+import dotenv from "dotenv";
+dotenv.config();
 
 export default defineConfig({
+   root:'.',
   build: {
+    outDir: path.resolve(
+      __dirname,
+      "dist"
+    ),
     emptyOutDir: true,
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: "globalThis",
-      },
-    },
+  define: {
+    global: "window",
   },
   server: {
     proxy: {
@@ -30,14 +32,4 @@ export default defineConfig({
     environment("all", { prefix: "CANISTER_" }),
     environment("all", { prefix: "DFX_" }),
   ],
-  resolve: {
-    alias: [
-      {
-        find: "declarations",
-        replacement: fileURLToPath(
-          new URL("../declarations", import.meta.url)
-        ),
-      },
-    ],
-  },
 });

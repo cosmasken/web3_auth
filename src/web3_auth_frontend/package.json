@@ -4,27 +4,33 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "setup": "npm i && dfx canister create web3_auth_backend && dfx generate web3_auth_backend && dfx deploy",
+    "internet-identity": "dfx deps pull && dfx deps init && dfx deps deploy",
+    "start:dfx": "dfx stop && rm -rf .dfx && dfx start --clean --background",
+    "setup": "npm run start:dfx && npm i && dfx canister create web3_auth_backend && dfx canister create web3_auth_frontend && dfx build && dfx generate && npm run internet-identity && dfx deploy",
     "start": "vite --port 3000",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",
     "format": "prettier --write \"src/**/*.{json,js,jsx,ts,tsx,css,scss}\""
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@dfinity/agent": "^1.4.0",
+    "@dfinity/auth-client": "^2.1.2",
     "@dfinity/candid": "^1.4.0",
-    "@dfinity/principal": "^1.4.0"
+    "@dfinity/identity": "^2.1.2",
+    "@dfinity/principal": "^1.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@vitejs/plugin-react": "^4.0.1",
+    "@vitejs/plugin-react": "^4.3.2",
     "dotenv": "^16.3.1",
+    "process": "^0.11.10",
     "sass": "^1.63.6",
     "typescript": "^5.1.3",
     "vite": "^4.3.9",
-    "vite-plugin-environment": "^1.1.3"
+    "vite-plugin-environment": "^1.1.3",
+    "zx": "^8.1.8"
   }
 }
