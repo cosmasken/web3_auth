@@ -4,6 +4,8 @@ import Text "mo:base/Text";
 import Trie "mo:base/Trie";
 import Nat16 "mo:base/Nat16";
 import Iter "mo:base/Iter";
+import Hash "mo:base/Hash";
+import Map "mo:base/HashMap";
 actor Backend {
 
 
@@ -23,6 +25,19 @@ actor Backend {
     website : ?Text;
     imageUrl : Text;
   };
+
+  
+  type ToDo = {
+    description: Text;
+    completed: Bool;
+  };
+
+  func natHash(n : Nat) : Hash.Hash { 
+    Text.hash(Nat.toText(n))
+  };
+
+  var todos = Map.HashMap<Nat, ToDo>(0, Nat.equal, natHash);
+  var nextId : Nat = 0;
 
   private stable var guestList : Trie.Trie<Text, Attendee> = Trie.empty();
 

@@ -6,7 +6,7 @@
   "scripts": {
     "internet-identity": "dfx deps pull && dfx deps init && dfx deps deploy",
     "start:dfx": "dfx stop && rm -rf .dfx && dfx start --clean --background",
-    "setup": "npm run start:dfx && npm i && dfx canister create web3_auth_backend && dfx canister create web3_auth_frontend && dfx build && dfx generate web3_auth_backend && npm run internet-identity && dfx deploy",
+    "setup": "npm run start:dfx && npm i && dfx canister create web3_auth_backend && dfx canister create web3_auth_frontend && dfx build && dfx generate && npm run internet-identity && dfx deploy",
     "start": "vite --port 3000",
     "prebuild": "dfx generate",
     "build": "tsc && vite build",

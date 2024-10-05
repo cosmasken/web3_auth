@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 import { useAuth } from "./use-auth-client";
 
 const whoamiStyles = {
@@ -15,8 +15,6 @@ function LoggedIn() {
     const whoami = await whoamiActor.whoami();
     setResult(whoami);
   };
-
- 
 
   return (
     <div className="container">
@@ -39,15 +37,6 @@ function LoggedIn() {
         placeholder="your Identity"
         style={whoamiStyles}
       />
-      <input
-        type="text"
-        readOnly
-        id="greetind"
-        value={greetind}
-        placeholder="your Greeting"
-        style={whoamiStyles}
-      />
-     
       <button id="logout" onClick={logout}>
         log out
       </button>
