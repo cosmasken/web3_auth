@@ -18,8 +18,7 @@ export const getIdentityProvider = () => {
     } else if (isLocal) {
       idpProvider = `http://${process.env.CANISTER_ID_INTERNET_IDENTITY}.localhost:4943`;
     }
-   // idpProvider = `http://localhost:4943/?canisterId=${process.env.CANISTER_ID_INTERNET_IDENTITY}`;
-  }
+    }
   return idpProvider;
 };
 
