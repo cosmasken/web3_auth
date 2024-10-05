@@ -32,24 +32,6 @@ actor Backend {
   };
 
 
-  // public shared ({ caller }) func createAttendee (user : Attendee) : async Principal {
-
-  //   let attendee : Attendee ={
-  //     web3id = caller;
-  //     username = user.username;
-  //     description = "Attended  RenderconKE 2024";
-  //     facebook = user.facebook;
-  //     twitter = user.twitter;
-  //     linkedin = user.linkedin;
-  //     github = user.github;
-  //     website = user.website;
-  //     imageUrl = user.imageUrl;
-  //   };
-
-    
-  //   return caller;
-
-  // };
 
   /**
     * Update the user's information
