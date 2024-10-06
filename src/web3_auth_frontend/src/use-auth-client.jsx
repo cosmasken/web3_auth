@@ -1,6 +1,6 @@
 import { AuthClient } from "@dfinity/auth-client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { canisterId, createActor } from "../../declarations/web3_auth_frontend";
+import { canisterId, createActor } from "../../declarations/web3_auth_backend";
 
 const AuthContext = createContext();
 
@@ -54,6 +54,8 @@ export const useAuthClient = (options = defaultOptions) => {
   const [principal, setPrincipal] = useState(null);
   const [whoamiActor, setWhoamiActor] = useState(null);
 
+  
+
   useEffect(() => {
     // Initialize AuthClient
     AuthClient.create(options.createOptions).then(async (client) => {
@@ -68,17 +70,23 @@ export const useAuthClient = (options = defaultOptions) => {
         updateClient(authClient);
       },
     });
+    console.log('isAuthenticated', isAuthenticated);
+    console.log('identity', identity);
+    console.log('principal', principal);
   };
 
   async function updateClient(client) {
     const isAuthenticated = await client.isAuthenticated();
     setIsAuthenticated(isAuthenticated);
+    console.log('isAuthenticated', isAuthenticated);
 
     const identity = client.getIdentity();
     setIdentity(identity);
+    console.log('identity', identity);
 
     const principal = identity.getPrincipal();
     setPrincipal(principal);
+    console.log('principal', principal);
 
     setAuthClient(client);
 
@@ -89,6 +97,11 @@ export const useAuthClient = (options = defaultOptions) => {
     });
 
     setWhoamiActor(actor);
+  }
+
+  async function whoami() {
+    const whoisme =  this.whoamiActor.whoami();
+    console.log('whoisme', whoisme);
   }
 
   async function logout() {

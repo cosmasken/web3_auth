@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useAuth } from "./use-auth-client";
 
 const whoamiStyles = {
@@ -11,17 +11,36 @@ function LoggedIn() {
 
   const { whoamiActor, logout } = useAuth();
 
-  const handleClick = async () => {
-    const whoami = await whoamiActor.whoami();
-    setResult(whoami);
-  };
+  
 
+  useEffect(() => {
+    const initializeActor = async () => {
+      if (!whoamiActor) {
+        console.error("Actor is not initialized");
+      }
+    };
+    initializeActor();
+  }, [whoamiActor]);
+  
+  const handleClick = async () => {
+    if (whoamiActor) {
+      try {
+        const whoami = await whoamiActor.whoami();
+        setResult(whoami);
+      } catch (error) {
+        console.error("Error fetching identity:", error);
+      }
+    } else {
+      console.error("whoamiActor is null, unable to fetch identity.");
+    }
+  };
+  
   return (
     <div className="container">
       <h1>Internet Identity Client</h1>
       <h2>You are authenticated!</h2>
       <p>To see how a canister views you, click this button!</p>
-      <button
+      {/* <button
         type="button"
         id="whoamiButton"
         className="primary"
@@ -36,7 +55,7 @@ function LoggedIn() {
         value={result}
         placeholder="your Identity"
         style={whoamiStyles}
-      />
+      /> */}
       <button id="logout" onClick={logout}>
         log out
       </button>
